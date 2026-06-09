@@ -1,6 +1,7 @@
 function welcomeMessage() {
   let userName = prompt("What's your name?");
   if (userName == null || userName == "") userName = "anonymous user";
+  userName = userName.trim();
   alert(`Welcome to the quiz, ${userName}!
 
     
@@ -46,10 +47,21 @@ function playQuiz() {
 
   function getAnswer(question, isNumber = false, hint = "") {
     let answer = prompt(question + "\n" + hint);
-    if (answer == null || answer == "")
-      answer = getAnswer(question, isNumber, "Pleaser enter an answer!");
-    answer = answer.toLowerCase();
-    // loop for unexpected values
+
+    if (answer == "")
+      answer = getAnswer(
+        question,
+        isNumber,
+        "Pleaser enter an answer! Click cancel to skip this question",
+      );
+    else if (answer == null) return null;
+    else {
+      answer = answer.trim();
+
+      if (isNumber && isNaN(answer))
+        answer = getAnswer(question, isNumber, "Please enter a number!");
+      else if (!isNumber) answer = answer.toLowerCase();
+    }
     return answer;
   }
 
