@@ -42,6 +42,7 @@ function playQuiz() {
     //calls getAnswer() and compares with the solution
     let { question, solution, isNumber } = questions[questionNo];
     let answer = getAnswer(question, isNumber);
+    if (answer === null) return "skip"; //checks if the user clicked cancel to skip the question.
     let isCorrect = answer === solution.toLowerCase();
     return isCorrect;
   }
@@ -57,7 +58,7 @@ function playQuiz() {
         "Pleaser enter an answer! Click cancel to skip this question",
       );
     else if (answer == null) return null;
-    //returning null ends this loop, but never passes the comparison with the solution,
+    //returning null ends this loop,
     // therefore skipping the question when the user clicks cancel.
     else {
       answer = answer.trim();
@@ -76,7 +77,10 @@ function playQuiz() {
     let message = "";
     let answerCorrect = askQuestion(qNo);
     //feedback message
-    if (answerCorrect) {
+    if (answerCorrect === "skip") {
+      // checks if the user skipped the question
+      message = `You skipped the question. The right answer is ${questions[qNo].solution}`;
+    } else if (answerCorrect) {
       message = "You got it right, congratulations!";
       score++;
     } else {
@@ -94,7 +98,7 @@ Score: ${score} out of ${qNo + 1}`;
       : scorePercentage >= 75
         ? "Well done, you achieved M in this quiz."
         : scorePercentage >= 50
-          ? "Good work you gained an A grade."
+          ? "Good work, you gained an A grade."
           : "You FAILED. Study more.";
 
   let finalMessage = `Final score: ${scorePercentage}%
