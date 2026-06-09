@@ -1,5 +1,6 @@
 function welcomeMessage() {
-  let userName = prompt("What's your name?", "Anonymous user");
+  let userName = prompt("What's your name?");
+  if (userName == null || userName == "") userName = "anonymous user";
   alert(`Welcome to the quiz, ${userName}!
 
     
@@ -12,37 +13,44 @@ function playQuiz() {
     {
       question: "What is the longest river in the world?",
       solution: "Nile",
+      isNumber: false,
     },
     {
       question: "In which year did the Titanic sink?",
       solution: "1912",
+      isNumber: true,
     },
     {
       question: "What is the fastest land animal?",
       solution: "Cheetah",
+      isNumber: false,
     },
     {
       question: "What is the smallest prime number?",
       solution: "2",
+      isNumber: true,
     },
     {
       question: "What is the chemical symbol for gold?",
       solution: "Au",
+      isNumber: false,
     },
   ];
 
   function askQuestion(questionNo) {
-    let { question, solution } = questions[questionNo];
-    let answer = getAnswer(question);
-    let isCorrect = solution === answer;
+    let { question, solution, isNumber } = questions[questionNo];
+    let answer = getAnswer(question, isNumber);
+    let isCorrect = answer === solution.toLowerCase();
     return isCorrect;
   }
 
-  function getAnswer(question) {
-    answer = prompt(question);
-    return answer;
-    // boundary values
+  function getAnswer(question, isNumber = false, hint = "") {
+    let answer = prompt(question + "\n" + hint);
+    if (answer == null || answer == "")
+      answer = getAnswer(question, isNumber, "Pleaser enter an answer!");
+    answer = answer.toLowerCase();
     // loop for unexpected values
+    return answer;
   }
 
   let score = 0;
