@@ -9,22 +9,34 @@ Let's go!`);
 const questions = [
   {
     question: "What is the longest river in the world?",
-    answer: "Nile",
+    solution: "Nile",
   },
   {
     question: "In which year did the Titanic sink?",
-    answer: "1912",
+    solution: "1912",
   },
   {
     question: "What is the fastest land animal?",
-    answer: "Cheetah",
+    solution: "Cheetah",
   },
   {
     question: "What is the smallest prime number?",
-    answer: "2",
+    solution: "2",
   },
   {
     question: "What is the chemical symbol for gold?",
-    answer: "Au",
+    solution: "Au",
   },
 ];
+
+function askQuestion(questionNo) {
+  let { question, solution } = questions[questionNo];
+  let answer = getAnswer(question);
+  let isCorrect = solution === answer;
+  return isCorrect;
+}
+
+function getAnswer(question) {
+  answer = prompt(question);
+  return answer;
+}
