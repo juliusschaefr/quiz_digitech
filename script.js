@@ -1,13 +1,13 @@
-function playQuiz() {
-  //FUNCTIONS
-  function welcomeMessage() {
-    let userName = prompt("What's your name?", "Anonymous user");
-    alert(`Welcome to the quiz, ${userName}!
+function welcomeMessage() {
+  let userName = prompt("What's your name?", "Anonymous user");
+  alert(`Welcome to the quiz, ${userName}!
+
     
 There are 5 questions. 
 Let's go!`);
-  }
+}
 
+function playQuiz() {
   const questions = [
     {
       question: "What is the longest river in the world?",
@@ -45,11 +45,7 @@ Let's go!`);
     // loop for unexpected values
   }
 
-  //SEQUENCE
-
   let score = 0;
-
-  welcomeMessage();
 
   for (let qNo = 0; qNo < questions.length; qNo++) {
     let message = "";
@@ -68,7 +64,13 @@ Score: ${score} out of ${qNo + 1}`;
   //final feedback
   let scorePercentage = Math.floor((score / questions.length) * 100);
   let scoreFeedback =
-    scorePercentage >= 90 ? "E" : scorePercentage >= 75 ? "M" : "A";
+    scorePercentage >= 90
+      ? "You are exceptional, your hard work has paid off, you attained an E!"
+      : scorePercentage >= 75
+        ? "Well done, you achieved M in this quiz."
+        : scorePercentage >= 50
+          ? "Good work you gained an A grade."
+          : "You FAILED. Study more.";
 
   let finalMessage = `Final score: ${scorePercentage}%
 ${scoreFeedback}
@@ -77,3 +79,7 @@ Do you want to play again?`;
 
   if (confirm(finalMessage)) playQuiz();
 }
+
+//SEQUENCE
+welcomeMessage();
+playQuiz();
