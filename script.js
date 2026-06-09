@@ -39,6 +39,7 @@ function playQuiz() {
   ];
 
   function askQuestion(questionNo) {
+    //calls getAnswer() and compares with the solution
     let { question, solution, isNumber } = questions[questionNo];
     let answer = getAnswer(question, isNumber);
     let isCorrect = answer === solution.toLowerCase();
@@ -46,6 +47,7 @@ function playQuiz() {
   }
 
   function getAnswer(question, isNumber = false, hint = "") {
+    //makes sure the input is valid
     let answer = prompt(question + "\n" + hint);
 
     if (answer == "")
@@ -55,6 +57,8 @@ function playQuiz() {
         "Pleaser enter an answer! Click cancel to skip this question",
       );
     else if (answer == null) return null;
+    //returning null ends this loop, but never passes the comparison with the solution,
+    // therefore skipping the question when the user clicks cancel.
     else {
       answer = answer.trim();
 
@@ -68,6 +72,7 @@ function playQuiz() {
   let score = 0;
 
   for (let qNo = 0; qNo < questions.length; qNo++) {
+    //iterates through the questions and calls askQuestion()
     let message = "";
     let answerCorrect = askQuestion(qNo);
     //feedback message
