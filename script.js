@@ -1,4 +1,5 @@
 function playQuiz() {
+  //FUNCTIONS
   function welcomeMessage() {
     let userName = prompt("What's your name?", "Anonymous user");
     alert(`Welcome to the quiz, ${userName}!
@@ -44,19 +45,35 @@ Let's go!`);
     // loop for unexpected values
   }
 
-  //let score = 0;
+  //SEQUENCE
+
+  let score = 0;
 
   welcomeMessage();
 
   for (let qNo = 0; qNo < questions.length; qNo++) {
     let message = "";
     let answerCorrect = askQuestion(qNo);
+    //feedback message
     if (answerCorrect) {
       message = "You got it right, congratulations!";
-      //score++;
+      score++;
     } else {
       message = `Sorry, that was wrong. The right answer is ${questions[qNo].solution}`;
     }
+    message += `
+Score: ${score} out of ${qNo + 1}`;
     alert(message);
   }
+  //final feedback
+  let scorePercentage = Math.floor((score / questions.length) * 100);
+  let scoreFeedback =
+    scorePercentage >= 90 ? "E" : scorePercentage >= 75 ? "M" : "A";
+
+  let finalMessage = `Final score: ${scorePercentage}%
+${scoreFeedback}
+
+Do you want to play again?`;
+
+  if (confirm(finalMessage)) playQuiz();
 }
