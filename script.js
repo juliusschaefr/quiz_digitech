@@ -109,6 +109,22 @@ Do you want to play again?`;
   if (confirm(finalMessage)) playQuiz();
 }
 
+function ageVerification() {
+  let age = prompt("How old are you?")
+
+  while (age == null || age == "" || isNaN(age)) {
+    age = prompt("How old are you?\nPlease enter a number")
+  }
+
+  if (age > 10 && age < 20) return true;
+  else return false;
+}
+
 //SEQUENCE
-welcomeMessage();
-playQuiz();
+if (ageVerification()) {
+  welcomeMessage();
+  playQuiz();
+}
+else {
+  alert("Sorry, you can only take this quiz if you're between 10 and 20 years old.")
+}
