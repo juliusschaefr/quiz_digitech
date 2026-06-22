@@ -2,7 +2,7 @@ function welcomeMessage() {
   let userName = prompt("What's your name?");
   if (userName == null || userName == "") userName = "anonymous user";
   userName = userName.trim();
-  alert(`Welcome to the quiz, ${userName}!
+  alert(`Welcome to my quiz about general knowledge, ${userName}!
 
     
 There are 5 questions. 
