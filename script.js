@@ -1,7 +1,7 @@
-function welcomeMessage() {
+function welcomeMessage() { // Asks the user their Name and then prints out a welcome message
   let userName = prompt("What's your name?");
-  if (userName == null || userName == "") userName = "anonymous user";
-  userName = userName.trim();
+  if (userName == null || userName == "") userName = "anonymous user"; //user gets the name "anonymous user" if they don't enter anything
+  userName = userName.trim(); // gets rid of unnecessary spaces at start and end
   alert(`Welcome to my quiz about general knowledge, ${userName}!
 
     
@@ -9,8 +9,8 @@ There are 5 questions.
 Let's go!`);
 }
 
-function playQuiz() {
-  const questions = [
+function playQuiz() { //this function is the actual quiz, including the questions and functions to check user answers and if they're right
+  const questions = [ // the questions and solutions and if the answer should be a number or not
     {
       question: "What is the longest river in the world?",
       solution: "Nile",
@@ -40,6 +40,7 @@ function playQuiz() {
 
   function askQuestion(questionNo) {
     //calls getAnswer() and compares with the solution
+    //returns true, false, or "skip"
     let { question, solution, isNumber } = questions[questionNo];
     let answer = getAnswer(question, isNumber);
     if (answer === null) return "skip"; //checks if the user clicked cancel to skip the question.
@@ -49,6 +50,7 @@ function playQuiz() {
 
   function getAnswer(question, isNumber = false, hint = "") {
     //makes sure the input is valid
+    //returns the trimmed answer in lowercase
     let answer = prompt(question + "\n" + hint);
 
     if (answer == "")
@@ -74,6 +76,7 @@ function playQuiz() {
 
   for (let qNo = 0; qNo < questions.length; qNo++) {
     //iterates through the questions and calls askQuestion()
+    //also keeps track of scores
     let message = "";
     let answerCorrect = askQuestion(qNo);
     //feedback message
@@ -90,7 +93,8 @@ function playQuiz() {
 Score: ${score} out of ${qNo + 1}`;
     alert(message);
   }
-  //final feedback
+  
+  //final feedback: tells user their score and grade
   let scorePercentage = Math.floor((score / questions.length) * 100);
   let scoreFeedback =
     scorePercentage >= 90
@@ -109,7 +113,8 @@ Do you want to play again?`;
   if (confirm(finalMessage)) playQuiz();
 }
 
-function ageVerification() {
+function ageVerification() { //verifies that the user is over 10 and under 20 years old
+  //returns true or false
   let age = prompt("How old are you?")
 
   while (age == null || age == "" || isNaN(age)) {
@@ -121,7 +126,7 @@ function ageVerification() {
 }
 
 //SEQUENCE
-if (ageVerification()) {
+if (ageVerification()) { // starts welcome message and quiz if user passes age verifiacation
   welcomeMessage();
   playQuiz();
 }
